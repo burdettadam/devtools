@@ -1,5 +1,5 @@
-//b507199x0
-//Flush the ruleset webpage: http://cs.kobj.net/ruleset/flush/b507199x0.prod;b507199x0.dev
+//b507901x2
+//Flush the ruleset webpage: http://cs.kobj.net/ruleset/flush/b507901x2.prod;b507901x2.dev
 ruleset devtools {
   meta {
     name "DevTools"
@@ -14,7 +14,7 @@ ruleset devtools {
         logging on
 
         use module a41x226 alias OAuthRegistry //(appManager)
-        use module v1_wrangler alias Wrangler 
+        use module b507901x1 alias Wrangler 
         use module b507199x6 alias Account
         //use module a169x625 alias PicoInspector
 
