@@ -1,4 +1,4 @@
-wrangler.clientKey = "76FEFB48-6508-11E6-9312-37E6E71C24E1";
+wrangler.clientKey = "8860766C-6640-11E6-816B-16BCE71C24E1";
 wrangler.anonECI = "85255500-0b65-0130-243c-00163ebcdddd";
 wrangler.callbackURL = "https://burdettadam.github.io/devtools/code.html";
 wrangler.host = "kibdev.kobj.net"; // change to cs.kobj.net when in production
