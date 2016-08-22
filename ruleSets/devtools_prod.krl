@@ -1,5 +1,5 @@
-//b507901x2
-//Flush the ruleset webpage: http://cs.kobj.net/ruleset/flush/b507901x2.prod;b507901x2.dev
+//b507199x0
+//Flush the ruleset webpage: http://cs.kobj.net/ruleset/flush/b507199x0.prod;b507199x0.dev
 ruleset devtools {
   meta {
     name "DevTools"
@@ -14,7 +14,7 @@ ruleset devtools {
         logging on
 
         use module a41x226 alias OAuthRegistry //(appManager)
-        use module b507901x1 alias Wrangler 
+        use module v1_wrangler alias Wrangler 
         use module b507199x6 alias Account
         //use module a169x625 alias PicoInspector
 
@@ -81,7 +81,7 @@ ruleset devtools {
 		        };
 		    }
 	        showInstalledRulesets = function() {
-	            rulesets = Wrangler:installedRulesets().klog(standardOut("Wrangler:Installed()"));
+	            rulesets = Wrangler:rulesets().klog(standardOut("Wrangler:Installed()"));
 	            rids = rulesets{'rids'};
 	            description = Wrangler:describeRulesets(rids).klog(standardOut("Wrangler:DescribeRules()"));
 	            description{'description'};
@@ -541,7 +541,7 @@ ruleset devtools {
 	      select when wrangler schedule_created
 	      pre {
 	      	do_main = event:attr("do_main").defaultsTo("explicit", standardError("missing event attr type"));
-	      	event_type = event:attr("event_type").defaultsTo("fixed_time", standardError("missing event attr eventtype"));
+	      	event_type = event:attr("event_type").defaultsTo("fixed time", standardError("missing event attr eventtype"));
 	        //time = event:attr("time").defaultsTo("wrong", standardError("missing event attr type"));
 	        //timespec = event:attr("timespec").defaultsTo("{}", standardError("missing event attr timespec"));
 	        date_time = event:attr("date_time").defaultsTo(time:add(time:now(),{"seconds":180}), standardError("missing event attr type"));
@@ -559,7 +559,7 @@ ruleset devtools {
 	        
 	      	//schedule explicit event "fixed time" at time:add(time:now(),{"seconds":180}) attributes attr;
 	        log(">> single >>");
-	        schedule explicit event event_type at date_time attributes attr ;
+	        schedule do_main event event_type at date_time attributes attr ;
 	        
 	        //schedule explicit event event_type at date_time attributes attr; //attributes event:attrs();
 	        //recurring
@@ -575,7 +575,7 @@ ruleset devtools {
 	            } 
 	      else {
 	        log(">> multiple >>");
-	        schedule explicit event event_type repeat recurrment attributes attr ;
+	        schedule do_main event event_type repeat recurrment attributes attr ;
 	        //schedule do_main event event_type at date_time attributes event:attrs();
 	        //schedule notification event status at time:add(time:now(),{"seconds":120}) attributes event:attrs();
 	      }
