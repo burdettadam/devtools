@@ -72,14 +72,14 @@ ruleset DevTools_bootstrap {
 
         bootstrapped = installed_rids{"rids"}
                          .klog(">>>> pico installed_rids before filter >>>> ")
-                         .filter(function(v){v eq "b507901x2.dev"})
+                         .filter(function(v){v eq "b507901x2.dev"})// could add a or for .prod
                          .klog(">>>> pico installed_rids after filter >>>> ")
                          .length()
                          .klog(">>>> pico installed_rids length >>>> ")
                          ;// check if installed_rids includes b507901x2.prod --- use a filter and check if length is > 0.
       
       }
-      if (bootstrapped > 1 ) then
+      if (bootstrapped > 0 ) then
       {
         send_directive("found_b507901x2.dev_for_developer") 
            with eci = eci;

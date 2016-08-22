@@ -79,7 +79,7 @@ ruleset DevTools_bootstrap {
                          ;// check if installed_rids includes b507901x2.prod --- use a filter and check if length is > 0.
       
       }
-      if (bootstrapped > 1 ) then
+      if (bootstrapped > 0 ) then
       {
         send_directive("found_b507901x2.dev_for_developer") 
            with eci = eci;
