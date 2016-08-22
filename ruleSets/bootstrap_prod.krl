@@ -22,7 +22,7 @@ ruleset DevTools_bootstrap {
             "core": [
                    "b507901x3.prod",  // PDS
                    "a16x129.dev",    // SendGrid module
-                   "b507901x2.dev", //DevTools
+                   "b507901x2.prod", //DevTools
                    "b16x29.prod"     // logging
             ],
       "unwanted": []
@@ -72,7 +72,7 @@ ruleset DevTools_bootstrap {
 
         bootstrapped = installed_rids{"rids"}
                          .klog(">>>> pico installed_rids before filter >>>> ")
-                         .filter(function(v){v eq "b507901x2.dev"})// could add a or for .prod
+                         .filter(function(v){v eq "b507901x2.prod"})// could add a or for .prod
                          .klog(">>>> pico installed_rids after filter >>>> ")
                          .length()
                          .klog(">>>> pico installed_rids length >>>> ")
@@ -81,7 +81,7 @@ ruleset DevTools_bootstrap {
       }
       if (bootstrapped > 0 ) then
       {
-        send_directive("found_b507901x2.dev_for_developer") 
+        send_directive("found_b507901x2.prod_for_developer") 
            with eci = eci;
       }
       fired {
@@ -91,8 +91,8 @@ ruleset DevTools_bootstrap {
         log ">>>> pico needs a bootstrap >>>> ";
         log ">>>> pico installed_rids, saw : " + rids.encode();
         log ">>>> pico installed_rids, saw : " + rids_string;
-        log ">>>> pico installed_rids.filter(function(k,v){v eq b507901x2.dev}), saw : " + installed_rids.filter(function(k,v){v eq "b507901x2.dev"}).encode();
-        log ">>>> pico installed_rids.filter(function(k,v){v eq b507901x2.dev}).length();, saw : " + installed_rids.filter(function(k,v){v eq "b507901x2.dev"}).length();
+        log ">>>> pico installed_rids.filter(function(k,v){v eq b507901x2.prod}), saw : " + installed_rids.filter(function(k,v){v eq "b507901x2.prod"}).encode();
+        log ">>>> pico installed_rids.filter(function(k,v){v eq b507901x2.prod}).length();, saw : " + installed_rids.filter(function(k,v){v eq "b507901x2.prod"}).length();
         raise explicit event devtools_bootstrap_needed ;  // don't bootstrap everything
         
       }
@@ -120,7 +120,7 @@ ruleset DevTools_bootstrap {
     select when bootstrap bootstrap_rid_needed_on_child
     pre {
       target_pico = event:attr("target");
-      installed = InstallRulesets(["b507901x0.dev"], target_pico)
+      installed = InstallRulesets(["b507901x0.prod"], target_pico)
                 .defaultsTo("error","installing bootstrap");
     }
     {

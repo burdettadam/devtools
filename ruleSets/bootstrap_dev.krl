@@ -22,7 +22,7 @@ ruleset DevTools_bootstrap {
             "core": [
                    "b507901x3.prod",  // PDS
                    "a16x129.dev",    // SendGrid module
-                   "b507901x2.dev", //DevTools
+                   "b507901x2.prod", //DevTools
                    "b16x29.prod"     // logging
             ],
       "unwanted": []
