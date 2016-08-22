@@ -83,7 +83,7 @@ ruleset devtools {
 	        showInstalledRulesets = function() {
 	            rulesets = Wrangler:rulesets().klog(standardOut("Wrangler:Installed()"));
 	            rids = rulesets{'rids'};
-	            description = Wrangler:describeRulesets(rids).klog(standardOut("Wrangler:DescribeRules()"));
+	            description = Wrangler:rulesetsInfo(rids).klog(standardOut("Wrangler:DescribeRules()"));
 	            description{'description'};
 	        }; 
         //------------------------------- <End oF>  Rulesets -------------------
