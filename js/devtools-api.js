@@ -14,11 +14,11 @@
 	get_rid : function(name) {
         
         var rids = {
-            "rulesets": {"prod": "b507199x0.prod", 
-                          "dev": "b507199x0.dev"
+            "rulesets": {"prod": "b507901x2.prod", 
+                          "dev": "b507901x2.dev"
             },
-            "bootstrap":{"prod": "b507199x1.prod", 
-                          "dev": "b507199x1.dev"
+            "bootstrap":{"prod": "b507901x0.prod", 
+                          "dev": "b507901x0.dev"
             }
         };
 
@@ -59,11 +59,11 @@
 		checkForBootstrapped = function(justNeedsBootstrap, needsBootstrapRuleset) {
             return wrangler.bootstrapCheck(function(json) {
                 console.log("json for bootstrap check",json);
-				if ($.inArray('b507199x0.dev', json.rids) > -1 && $.inArray('b507901x1.dev', json.rids) > -1) {
+				if ($.inArray('b507901x2.dev', json.rids) > -1 && $.inArray('b507901x1.dev', json.rids) > -1) {
 					console.log("Pico is bootstrapped");
 					cb();
 				}
-				else if ($.inArray('b507199x1.dev', json.rids) > -1) { // will never make it here ...
+				else if ($.inArray('b507901x0.dev', json.rids) > -1) { // will never make it here ...
 					justNeedsBootstrap();
 				}
 				else {
