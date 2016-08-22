@@ -3,3 +3,5 @@ secretstuff.txt
 bin
 bin/sync_repo
 .DS_Store
+
+js/wrangler-config.js
