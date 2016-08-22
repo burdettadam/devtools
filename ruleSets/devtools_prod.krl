@@ -8,7 +8,7 @@ ruleset devtools {
     >>
         author "KRL-DevTools Developer"
 
-        use module b16x24 alias system_credentials
+        use module b16x42 alias system_credentials
 
 
         logging on
