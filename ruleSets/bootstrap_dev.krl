@@ -22,7 +22,8 @@ ruleset DevTools_bootstrap {
             "core": [
                    "b507901x3.prod",  // PDS
                    "a16x129.dev",    // SendGrid module
-                   "b507901x2.prod", //DevTools
+                   "b507901x2.prod", // DevTools
+                   "b507901x1.prod", // wrangler
                    "b16x29.prod"     // logging
             ],
       "unwanted": []
@@ -72,16 +73,16 @@ ruleset DevTools_bootstrap {
 
         bootstrapped = installed_rids{"rids"}
                          .klog(">>>> pico installed_rids before filter >>>> ")
-                         .filter(function(v){v eq "b507901x2.prod"})
+                         .filter(function(v){v eq "b507901x2.prod" || v eq "b507901x1.prod" })
                          .klog(">>>> pico installed_rids after filter >>>> ")
                          .length()
                          .klog(">>>> pico installed_rids length >>>> ")
                          ;// check if installed_rids includes b507901x2.prod --- use a filter and check if length is > 0.
       
       }
-      if (bootstrapped > 0 ) then
+      if (bootstrapped >= 2 ) then// we have both devtools and wrangler
       {
-        send_directive("found_b507901x2.prod_for_developer") 
+        send_directive("found_b507901x2.prod_or_b507901x1.prod_for_developer") 
            with eci = eci;
       }
       fired {
