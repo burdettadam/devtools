@@ -22,7 +22,7 @@
             }
         };
 
-	    return this.defaults.production ? rids[name].prod : rids[name].prod;
+	    return this.defaults.production ? rids[name].prod : rids[name].dev;
 	},
     // whats this for?
     rid_eci: null, //fleet_eci
