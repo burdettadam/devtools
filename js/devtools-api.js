@@ -58,12 +58,21 @@
 		//Check for wrangler and devtools on pico.. could this be a rule in bootrap rulesets?
 		checkForBootstrapped = function(justNeedsBootstrap, needsBootstrapRuleset) {
             return wrangler.bootstrapCheck(function(json) {
+<<<<<<< HEAD
                 console.log("json for bootstrap check",json);
 				if ($.inArray('b507901x2.prod', json.rids) > -1 && $.inArray('b507901x1.prod', json.rids) > -1) {
 					console.log("Pico is bootstrapped");
 					cb();
 				}
 				else if ($.inArray('b507901x0.prod', json.rids) > -1) { // will never make it here ...
+=======
+				console.log(json);
+				if ($.inArray('b507199x14.prod', json.rids) > -1 && $.inArray('v1_wrangler.prod', json.rids) > -1) {
+					console.log("Pico is bootstrapped");
+					cb();
+				}
+				else if ($.inArray('v1_devtools_bootstrap.prod', json.rids) > -1) { // will never make it here ...
+>>>>>>> kre/gh-pages
 					justNeedsBootstrap();
 				}
 				else {
