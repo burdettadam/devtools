@@ -269,36 +269,13 @@
 								}, {"eci":picoToOpen});
 							});
 
-							$('.deletePicoButton').off('tap').on('tap', function(event)
-							{	
-								deleteThis = this.id;
-								console.log("DELETE button pushed for " + deleteThis);
-								noty( {
-									layout: 'topCenter',
-									text: 'Are you sure you want to delete this pico?',
-									type: 'warning',
-
-									buttons: [ {
-										addClass: 'btn btn-primary', text: 'Delete', onClick: function($noty) {
-											$noty.close();
-											$.mobile.loading("show", {
-												text: "Deleting pico...",
-												textVisible: true
-											});
-											wrangler.deleteChild({"pico_name":deleteThis}, function() {
-												$.mobile.changePage("#about", {
-													transition: 'slide',
-													allowSamePageTransition : true
-												});
-											});
-										}
-									},
-									{
-										addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
-											$noty.close();
-											noty({layout: 'topCenter', text: 'You clicked "Cancel" button', type: 'error'});
-										}
-									}]
+							$(".deletePicoButton").off('tap').on('tap', function() {
+								console.log("DELETE button pushed for " + this.id);
+								wrangler.deleteChild({"pico_name":this.id}, function() {
+									$.mobile.changePage("#about", {
+										transition: 'slide',
+										allowSamePageTransition : true
+									});
 								});
 							});
 
@@ -395,67 +372,10 @@
 				console.log("listing Handler");
 				loadSpinner("#manage-list", "registered rulesets");
 
-				$("#listing-rulesets-sortby-name").addClass("ui-btn-active");
-
-				//---------------- sort buttons -----------------------------
-				$("#listing-rulesets-sortby-name").click( function() {
-					console.log("SORT BY NAME");
-					$.mobile.loading("show", {
-						text: "Sorting Rulesets by Name...",
-						textVisible: true
-					});
-					populate_registered_rulesets("name");
-				});
-
-				$("#listing-rulesets-sortby-rid").click( function() {
-					console.log("SORT BY RID");
-					$.mobile.loading("show", {
-						text: "Sorting Rulesets by Ruleset ID...",
-						textVisible: true
-					});
-					populate_registered_rulesets("rid");
-				});
-
-				$("#listing-rulesets-sortby-cache").click( function() {
-					console.log("SORT BY CACHE");
-					$.mobile.loading("show", {
-						text: "Sorting Rulesets by Cache...",
-						textVisible: true
-					});
-					populate_registered_rulesets("cache");
-				});
-
-				function populate_registered_rulesets(sortType){	
+				function populate_registered_rulesets(){	
 					Devtools.getRulesets(function(rids_json){ //the callback/function is where we need to have all of our code
 						$("#manage-list" ).empty();
-						console.log(">>> Rulesets: ", rids_json['description']);
-						var sortedRids = rids_json['description'];
-
-						if (sortType == "rid")
-							sortedRids = sortedRids.sort(sortBy("rid"));
-						else if (sortType == "cache") {
-							sortedRids = sortedRids.sort(function(a,b){
-								aCache = a['description']['ruleset_cached'];
-								bCache = b['description']['ruleset_cached'];
-
-								if (aCache > bCache)
-									return -1;
-								if (aCache < bCache)
-									return 1;
-								return 0;
-							});
-						} else {
-							sortedRids = sortedRids.sort(function(a,b){
-								aName = a['description']['name'].toUpperCase();
-								bName = b['description']['name'].toUpperCase();
-
-								if (aName < bName)
-									return -1;
-								if (aName > bName)
-									return 1;
-								return 0;
-							});
-						}
+						var sortedRids = rids_json['description'].sort(sortBy("rid"));
 
 						dynamicRegRulesets="";
 						$.each(sortedRids, function (id, rids) {
@@ -541,7 +461,7 @@
 											$.mobile.loading("hide");
 													//refreshes the page because refreshPage() takes us to the homepage
 													$("#manage-list" ).empty();
-													populate_registered_rulesets("name");
+													populate_registered_rulesets();
 												});
 									}
 								}
@@ -581,7 +501,7 @@
 						});		
 					}
 					else { // else in root
-						populate_registered_rulesets("name");
+						populate_registered_rulesets();
 					}
 				});
 				
@@ -1298,10 +1218,10 @@
 							dynamicChannelItems2 = "";
 							dynamicChannelItems = "";
 							//Sort
-							chAray.sort(function(a, b) {
+							chAray.sort(function(a, b){
 								return ((a.last_active>b.last_active) ?-1:1);
 							//return ((a.name.toLowerCase()<b.name.toLowerCase()) ?-1:1);
-							});
+						});
 							//inner div
 							type = "";
 							$.each(chAray,function(index,channel){
@@ -1327,59 +1247,23 @@
 									);
 									key = generateKey(channel);//hack of how to get key, assigned every iteration(bad)
 								});
-						  	//outter div
-						  	dynamicChannelItems += 
-						  	snippets.installed_channels_template(
+						  //outter div
+						  dynamicChannelItems += 
+						  snippets.installed_channels_template(
 									{"Type": key}//,
 										//"channelDivs": dynamicChannelItems2}
 										);
-						  	$("#installed-channels").append(dynamicChannelItems).collapsibleset().collapsibleset( "refresh" );
-						  	$("#"+key.replace(new RegExp('[ ]', 'g'), "\\ ")+"2").append(dynamicChannelItems2).collapsibleset().collapsibleset( "refresh" );
+						  $("#installed-channels").append(dynamicChannelItems).collapsibleset().collapsibleset( "refresh" );
+						  $("#"+key.replace(new RegExp('[ ]', 'g'), "\\ ")+"2").append(dynamicChannelItems2).collapsibleset().collapsibleset( "refresh" );
 
-						  	$('.channel-delete').off('tap').on('tap', function(event) {	
-						  		deleteChannel = this.id;
-						  		console.log("DELETE button pushed for " + deleteChannel);
-						  		noty( {
-						  			layout: 'topCenter',
-						  			text: '- Are you sure you want to delete this channel? - Do NOT delete channels unless you know what you\'re doing. Deletion of key channels could make your pico inoperable.',
-						  			type: 'warning',
-
-						  			buttons: [ {
-						  				addClass: 'btn btn-primary', text: 'Delete', onClick: function($noty) {
-						  					$noty.close();
-						  					$.mobile.loading("show", {
-						  						text: "Uninstalling channel...",
-						  						textVisible: true
-						  					});
-						  					console.log("Uninstalling channel ", deleteChannel);
-						  					if(typeof deleteChannel !== "undefined") {
-						  						Devtools.uninstallChannel(deleteChannel, function(directives) {
-						  							console.log("uninstalled ", deleteChannel, directives);
-						  							$.mobile.changePage("#page-channel-management", {
-						  								transition: 'slide',
-						  								allowSamePageTransition: true
-						  							});
-						  						}); 
-						  					}
-						  				}
-						  			},
-						  			{
-						  				addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
-						  					$noty.close();
-						  					noty({layout: 'topCenter', text: 'You clicked "Cancel" button', type: 'error'});
-						  				}
-						  			}]
-						  		});
-						  	});
 						});
-
-					 	// $("#installed-channels").append(dynamicChannelItems).collapsibleset().collapsibleset( "refresh" );
-					 	$.mobile.loading("hide");
+						
+					 // $("#installed-channels").append(dynamicChannelItems).collapsibleset().collapsibleset( "refresh" );
+					 $.mobile.loading("hide");
 					});
-				}
-
-				populate_installed_channels();
-			},
+					}
+					populate_installed_channels();
+				},
 
 				uninstall_channel: function(type, match, ui, page) {
 					console.log("Showing uninstall channel page");
