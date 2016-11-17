@@ -1719,7 +1719,7 @@ subscriptions: function(type, match, ui, page) {
 										"relationship": object["relationship"],
 										"outbound_cid": object["outbound_eci"],
 										"inbound_cid": object["inbound_eci"],
-										"c_name": key2,
+										"c_name": object["channel_name"],
 										"attributes": object["attributes"]
 										//"attributes":JSON.stringify(object["attrs"])
 									}
