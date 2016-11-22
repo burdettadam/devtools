@@ -255,18 +255,13 @@
 							$(".openPicoButton").off('tap').on('tap', function() {
 								console.log(this.id);
 								picoToOpen = this.id;
-								$.mobile.loading("show", {
-									text: "Ensuring child pico is bootstrapped...",
-									textVisible: true
+
+								PicoNavigator.navigateTo(picoToOpen);
+								$.mobile.changePage("#about", {
+									transition: 'slide',
+									allowSamePageTransition : true
 								});
-								/*Devtools.ensureBootstrap(function() {
-									$.mobile.loading("hide");
-									PicoNavigator.navigateTo(picoToOpen);
-									$.mobile.changePage("#about", {
-										transition: 'slide',
-										allowSamePageTransition : true
-									});
-								}, {"eci":picoToOpen});*/
+
 							});
 
 							$(".deletePicoButton").off('tap').on('tap', function() {
