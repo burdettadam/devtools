@@ -259,14 +259,14 @@
 									text: "Ensuring child pico is bootstrapped...",
 									textVisible: true
 								});
-								Devtools.ensureBootstrap(function() {
+								/*Devtools.ensureBootstrap(function() {
 									$.mobile.loading("hide");
 									PicoNavigator.navigateTo(picoToOpen);
 									$.mobile.changePage("#about", {
 										transition: 'slide',
 										allowSamePageTransition : true
 									});
-								}, {"eci":picoToOpen});
+								}, {"eci":picoToOpen});*/
 							});
 
 							$(".deletePicoButton").off('tap').on('tap', function() {
@@ -2237,7 +2237,7 @@ subscribe: function(type, match, ui, page) {
 			var authd = wrangler.authenticatedSession();
 			if(authd) {
 				console.log("Authorized");
-				Devtools.ensureBootstrap();
+				//Devtools.ensureBootstrap();
 				//document.location.hash = "#home";
 			} else {  
 				console.log("Asking for authorization");
